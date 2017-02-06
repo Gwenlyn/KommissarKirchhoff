@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi">
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+	$(document).on("mobileinit", function() {
+		$.mobile.hashListeningEnabled = false;
+		$.mobile.pushStateEnabled = false;
+		$.mobile.changePage.defaults.changeHash = false;
+	});
+</script>
+<script
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="dist/leaflet.css" />
+<link rel="stylesheet" type="text/css" href="css/unser.css" />
+<link rel="stylesheet" type="text/css" href="css/rot-schwarz.css" />
+
+
+<title>Blutige Abgründe</title>
+</head>
+<body>
+	<!--  INTRO PAGES -->
+	<!-- Intropage-1 -->
+	<div data-role="page" id="intro-page1" data-theme="a">
+		<div data-role="header" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+
+					<li><a href="#map-page" data-role="button" data-icon="delete"
+						data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="intro-text">
+			<h2>Herzlich Willkommen in Nettersheim, Herr Kommissar!</h2>
+			<p>Eine kurze Einführung in die Bedienung des Spiels</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#intro-page2" data-role="button"
+						data-icon="carat-r" data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Intropage-2 -->
+	<div data-role="page" id="intro-page2" data-theme="a">
+		<div data-role="header" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+
+					<li><a href="#map-page" data-role="button" data-icon="delete"
+						data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="intro-text">
+			<h2>NFC</h2>
+			<p>Frag doch einfach mal Siri um Rat</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#intro-page1" data-role="button"
+						data-icon="carat-l" data-theme="a"></a></li>
+					<li><a href="#intro-page3" data-role="button"
+						data-icon="carat-r" data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Intropage-3 -->
+	<div data-role="page" id="intro-page3" data-theme="a">
+		<div data-role="header" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+
+					<li><a href="#map-page" data-role="button" data-icon="delete"
+						data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="intro-text">
+			<h2>Herr Kommissar, soeben traf eine Nachricht für Sie ein</h2>
+			<p>Jetzt aber schnell los, um den Mörder zu fassen und weitere
+				Morde zu verhindern!</p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#intro-page2" data-role="button"
+						data-icon="carat-l" data-theme="a"></a></li>
+					<li><a href="#map-page" data-role="button" data-icon="check"
+						data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- MAP PAGE -->
+	<div data-role="page" id="map-page" data-theme="b">
+
+
+		<div data-role="header" id="map-page-header">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#eye-panel" data-role="button" data-icon="eye"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#note-panel" class="note-button"
+						data-role="button" data-icon="bullets" data-transition="slide"
+						data-theme="a" data-transition="slide"></a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div data-role="content">
+			<div id="map"></div>
+		</div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location1-page" data-role="button"
+						data-icon="carat-r" data-theme="a"></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="panel" id="eye-panel" data-position="left"
+			data-theme="a">
+			<h3>Was soll ich tun?</h3>
+			<p>
+				Der Mörder beobachtet dich möglicherweise... Also sieh zu, dass du
+				an alle angegebenen Orte gehst, und dein Handy an das NFC-Feld
+				hälst. Sammele dann Indizien für den dort begangenen Mord, in dem du
+				Zeugen befragst und dir wichtige Details notierst (<span
+					class="ui-btn-icon-left ui-icon-bullets" style="position: relative"
+					data-theme="a"></span>) löst.
+			</p>
+			<a href="#map-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right">Ok,
+				verstanden!</a>
+		</div>
+
+		<div data-role="panel" id="note-panel" data-position="right"
+			data-theme="a">
+
+			<h3>Notizblock</h3>
+			<div id="notes">
+				<ul data-role="listview">
+					<li id="note-one"></li>
+					<li id="note-two"></li>
+					<li id="note-three"></li>
+					<li id="note-four"></li>
+					<li id="note-five"></li>
+					<li id="note-six"></li>
+					<li id="note-seven"></li>
+					<li id="note-eight"></li>
+
+				</ul>
+			</div>
+
+			<a href="#map-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right">zurück</a>
+		</div>
+	</div>
+
+
+
+	<!-- LOCATION PAGES LOC1: Römische Straßenbeläge -->
+	<!-- LOC1.1: Einfühung-->
+	<div data-role="page" id="location1-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location1.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location1" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Römische
+					Straßenbeläge
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist an der Römerstraße angekommen. Hier triffst du den
+						Dorfpolizisten Plötschke, der dir weitere Informationen geben
+						möchte.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location1-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location1" data-position="right"
+			data-theme="b">
+			<h3>Auf Römerstraßen unterwegs</h3>
+			<p>Straßen waren die Lebensadern des riesigen römischen Reiches.
+				Die Fernstraßen in den römischen Provinzen waren in der Regel
+				Schottertrassen, nur in größeren Siedlungen und auf manchen Straßen
+				gab es eine Pflasterung.</p>
+			<a href="#location1-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!-- LOC1.2: Plötschke -->
+	<div data-role="page" id="location1-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location1.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Hallo Herr Kommissar Kirchhoff, ich bin froh, dass sie
+						eingetroffen sind, wir haben hier nicht häufig mit Mord zu tun.
+						Ich freue mich auf Ihre Unterstützung."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location1-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location1-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC1.3: Kommissar Karl -->
+	<div data-role="page" id="location1-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location1.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Hallo, Herr Plötschke. Was ist denn überhaupt passiert?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location1-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location1-page4" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC1.4: Plötschke -->
+	<div data-role="page" id="location1-page4" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location1.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Etwas Schreckliches, gestern gab es ein großes Römerfest
+						hier und heute Morgen sind mehrere Leichen entdeckt worden."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location1-page3" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location1-page5" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- LOC1.5: Kommissar Karl -->
+	<div data-role="page" id="location1-page5" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location1.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Das ist alles, was sie bisher herausgefunden haben? Dann
+							führen sie mich jetzt zu den Tatorten und ich werde mich mit den
+							Zeugen unterhalten."</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location1-page4" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#notizen1" data-role="button" data-icon="search"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- NOTIZEN1 -->
+	<div data-role="page" id="notizen1" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz1">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location8-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- LOCATION PAGES LOC2: Matronentempel-->
+	<!-- LOC2.1: Einführung-->
+	<div data-role="page" id="location2-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location2" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Matronentempel
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Matronenheiligtum angekommen, du findest die
+						angenagelte Leiche einer jungen Frau. Ihr wurde in der Nacht die
+						Kehle durchgeschnitten. Ebenfalls am Tatort befindet sich ein
+						Priester.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location2" data-position="right"
+			data-theme="b">
+			<h3>Matronentempel</h3>
+			<p>In diesem Heiligtum wurden die Aufanischen Matronen,
+				einheimische Schutzgottheiten, verehrt. Seit dem 1. Jh. n. Chr.
+				opferte man hier zuerst an einem Erdaltar, im 2. Jh. wurden die
+				Steinbauten errichtet. Die Tempelanlage bestand bis in das 4. Jh.</p>
+			<a href="#location2-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!-- LOC2.2: Kommissar Karl -->
+	<div data-role="page" id="location2-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Was zur Hölle ist hier passiert? Gibt es irgendwelche
+							Zeugen?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.3: Plötschke -->
+	<div data-role="page" id="location2-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Ja hier ist Bruder Eberhard. Er sagt aus, er habe wichtige
+						Informationen zum Täter."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page4" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.4: Kommissar Karl -->
+	<div data-role="page" id="location2-page4" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Was können sie mir über das Opfer sagen Bruder Eberhard?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page3" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page5" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.5: Priester -->
+	<div data-role="page" id="location2-page5" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Ich kenne Lisa schon mein ganzes Leben. Aber seitdem sie
+						Miss Eifel geworden ist, erkenne ich sie nicht wieder:"</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page4" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page6" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.6: Kommissar Karl -->
+	<div data-role="page" id="location2-page6" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Was möchten sie damit andeuten? Und was hat das ganze mit
+							dem Mörder zu tun?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page5" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page7" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.7: Priester -->
+	<div data-role="page" id="location2-page7" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Achten sie auf die Stirn des Opfers."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page6" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page8" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.8: Kommissar Karl -->
+	<div data-role="page" id="location2-page8" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Superbia, was soll das bedeuten?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page7" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page9" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.9: Priester -->
+	<div data-role="page" id="location2-page9" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Superbia ist eine der sieben Todsünden und bedeutet
+						Hochmut. Das heißt der Täter muss jemand sein, der gläubig ist."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page8" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page10" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.10: Kommissar Karl -->
+	<div data-role="page" id="location2-page10" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Das ist interessant. Können sie mir noch weitere Hinweise
+							liefern?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page9" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page11" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOC2.11: Priester -->
+	<div data-role="page" id="location2-page11" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Leider nein!"</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page10" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location2-page12" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- LOC2.12: Kommissar Karl -->
+	<div data-role="page" id="location2-page12" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location2-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Danke, aber um den Täter zu überführen, muss ich mir die
+							weiteren Leichen ansehen. Plötschke, führen sie mich zur nächsten
+							Leiche!" </i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location2-page11" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen2" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN2 -->
+	<div data-role="page" id="notizen2" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz2">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<!-- <li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li> -->
+					<li><a href="#location3-page" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- LOCATION PAGES LOC3: Marcomagus -->
+	<!-- LOC3.1: Einführung-->
+	<div data-role="page" id="location3-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location3" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Marcomagus
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Aussichtspunkt über Marcomagus angekommen..
+						Wieder findest du eine Leiche die an einem Kreuz festgenagelt ist.
+						Auch ihr wurde die Kehle durchgeschnitten. Du siehst ein weinendes
+						Kind.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location3-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location3" data-position="right"
+			data-theme="b">
+			<h3>Marcomagus</h3>
+			<p>Von hier aus erstreckte sich die römische Siedlung in Richtung
+				Süden entlang der Agrippastraße hinab in das Urfttal. In nördliche
+				Richtung ging es nach Tolbiacum (Zülpich) und in die CCAA (Köln) an
+				den Rhein.</p>
+			<a href="#location3-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!-- Loc3.2: Kommissar Karl -->
+	<div data-role="page" id="location3-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Plötschke sehen Sie! Wieder ist etwas in die Stirn des
+							Opferns eingeritzt. AVARITIA. was könnte das bedeuten?"</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location3-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location3-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Loc3.3: Plötschke -->
+	<div data-role="page" id="location3-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Das bedeutet Habgier und ist eine weitere Todsünde. Das
+						Opfer ist ein Verkäufer römischen Schmucks. Hier ist sein Sohn, er
+						hat ihn zuletzt lebend gesehen."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location3-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location3-page4" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Loc3.4: Kommissar Karl -->
+	<div data-role="page" id="location3-page4" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Es tut mir Leid. Was kannst du mir über den Täter sagen."</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location3-page3" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location3-page5" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Loc3.5: Junge -->
+	<div data-role="page" id="location3-page5" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Mein Papa ist mit einer fremden Frau weggegangen. Mehr weiß
+						ich nicht."</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location3-page4" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location3-page6" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- loc3.6: Kommissar Karl -->
+	<div data-role="page" id="location3-page6" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location3-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>
+						<i>"Wie ich sehe, war unser Täter offenbar eine weibliche
+							Person. Das ist eher ungewöhnlich. Sehen wir weiter, Plötschke! "</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location3-page5" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen3" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN3 -->
+	<div data-role="page" id="notizen3" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz3">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- LOCATION PAGES LOC4: Vicus -->
+	<!-- loc4.1: Einführung-->
+	<div data-role="page" id="location4-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location4.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location4" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Vicus
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Vicus angekommen. Erneut findest du eine an ein
+						Kreuz genagelte Leiche mit einer durchschnittenen Kehle. Als
+						Zeugin ist die Schwägerin des Opfers anwesend.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location4-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location4" data-position="right"
+			data-theme="b">
+			<h3>Vicus</h3>
+			<p>
+				Wohnen und arbeiten unter einem Dach: Typische Bauform für die
+				Nordwestprovinzen des römischen Reiches war das Streifenhaus mit
+				langrechteckigem Grundriss.<br> Sie besaßen Sockel aus
+				Bruchstein mit darüber aufgehenden Fachwerkwänden. Die Dächer waren
+				mit roten Dachziegeln, manchmal auch mit Schiefer oder seltener mit
+				Steinplatten gedeckt.<br> Zwischen den aufgereihten Häusern
+				bestand ein Abstand in Gehwegbreite. Unter den Häusern verlaufende
+				Kanäle leiteten das Hang- und Regenwasser abwärts.
+			</p>
+			<a href="#location4-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!--  2 -->
+	<div data-role="page" id="location4-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location4-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location4-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location4-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  3 -->
+	<div data-role="page" id="location4-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location4-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location4-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen4" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN4 -->
+	<div data-role="page" id="notizen4" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz4">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- LOCATION PAGES LOC5: Kleinkastell -->
+	<!-- loc5.1: Einführung-->
+	<div data-role="page" id="location5-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location5.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location5" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Kleinkastell
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Kleinkastell angekommen. Erneut findest du eine
+						an ein Kreuz genagelte Leiche mit einer durchschnittenen Kehle.
+						Eine Frau befindet sich in unmittelbarer Nähe zur Leiche.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location5-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location5" data-position="right"
+			data-theme="b">
+			<h3>Kleinkastell</h3>
+			<p>....Kein Text vorhanden...</p>
+			<a href="#location5-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!--  2 -->
+	<div data-role="page" id="location5-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location5-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location5-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location5-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  3 -->
+	<div data-role="page" id="location5-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location5-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location5-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen5" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN5 -->
+	<div data-role="page" id="notizen5" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz5">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- LOCATION PAGES LOC6: Rennofen -->
+	<!-- loc6.1: Einführung-->
+	<div data-role="page" id="location6-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location6.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location6" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Rennofen
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Rennofen angekommen. Erneut findest du eine an
+						ein Kreuz genagelte Leiche mit einer durchschnittenen Kehle. Auf
+						der Stirn des Opfers steht erneut ein lateinisches Wort. Eine alte
+						Frau wartet bereits auf dich.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location6-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location6" data-position="right"
+			data-theme="b">
+			<h3>Eisenverhüttung im Rennofen</h3>
+			<p>In der römischen Siedlung wurde über einen längeren Zeitraum
+				intensiv Eisen verhüttet. Dafür wurden Öfen aus Lehm, sogenannte
+				Rennöfen, errichtet, die mit Eisenerz und Holzkohle befüllt und ein
+				bis zwei Tage lang befeuert wurden. Als Ergebnis erhielt man
+				Schlacke mit Eisen, das vom Schmied herausgearbeitet werden konnte.</p>
+			<a href="#location6-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!--  2 -->
+	<div data-role="page" id="location6-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location6-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location6-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location6-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  3 -->
+	<div data-role="page" id="location6-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location6-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location6-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen6" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN6 -->
+	<div data-role="page" id="notizen6" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz6">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- LOCATION PAGES LOC7: Taverne -->
+	<!-- loc7.1-->
+	<div data-role="page" id="location7-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location7.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location6" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Taverne
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist an der Taverne angekommen. Erneut findest du eine an
+						ein Kreuz genagelte Leiche mit einer durchschnittenen Kehle. Auf
+						der Stirn des Opfers steht erneut ein lateinisches Wort. Das Wort
+						lautet GULA. Du befindest dich in der Nähe der Theke, der Wirt ist
+						anwesend.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location7-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location7" data-position="right"
+			data-theme="b">
+			<h3>Taverne</h3>
+			<p>Tipp: Die Rast ist wohl verdient: in der Taverne lassen sich
+				Speis und Trank genießen (sonntags und feiertags von 11 bis 18 Uhr
+				geöffnet!). Oder man kocht selbst - buchen Sie Ihr individuelles
+				Tavernen-Programm. Auch übernachten lässt es sich hier: drei nicht
+				alltägliche Gästezimmer (jeweils 2-4 Personen inkl. Bad, gemeinsame
+				Teeküche) laden dazu ein</p>
+			<a href="#location6-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!--  2 -->
+	<div data-role="page" id="location7-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location7-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location7-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location7-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  3 -->
+	<div data-role="page" id="location7-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location7-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location7-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen7" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN7 -->
+	<div data-role="page" id="notizen7" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz7">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button"
+						data-icon="navigation" data-theme="a" data-transition="slide">Karte</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- LOCATION PAGES LOC8: Römischer Garten -->
+	<!-- loc8.1: Einführung-->
+	<div data-role="page" id="location8-page" data-theme="a">
+		<div class="page-img-container">
+			<img class="location-img" src="img/location8.jpg">
+		</div>
+		<div class="content">
+			<!--  data-role="content" weggenommen, dadurch bug im Schließen vom Panel. Dadurch info-balken dichter am locationimg -->
+			<div class="information-container">
+
+				<a href="#info-panel-location8" data-role="button" data-icon="info"
+					data-theme="a" data-iconpos="right"> <span
+					class="ui-btn-icon-left ui-icon-location"
+					style="position: relative" data-theme="a"></span>Römischer Garten
+				</a>
+			</div>
+			<div class="text-wrapper">
+				<div class="text-container" data-theme="a">
+					<p>Du bist am Garten angekommen. Erneut findest du eine an ein
+						Kreuz genagelte Leiche mit einer durchschnittenen Kehle. Auf der
+						Stirn des Opfers steht erneut ein lateinisches Wort. Das Wort
+						lautet INVIDIA. Der Gärtner pflegt in ein paar Metern Entfernung
+						die Blumen.</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#map-page" data-role="button" data-icon="carat-l"
+						data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location8-page2" data-role="button"
+						data-icon="carat-r" data-transition="slide" data-theme="a"
+						data-transition="slide"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="panel" id="info-panel-location8" data-position="right"
+			data-theme="b">
+			<h3>Römischer Garten</h3>
+			<p>
+				Die Römer brachten viele Gemüse- und Obstsorten, Gewürz- und
+				Heilkräuter nach Germanien – sie bereichern unsere Küche bis heute.
+				<br> <b>Tipp:</b> Ein Blättchen der Weinraute, zur Römerzeit
+				ein beliebtes Gewürzkaut, zwischen den Fingern zerreiben und den
+				intensiven Duft wahrnehmen!
+			</p>
+			<a href="#location6-page" data-role="button" data-icon="delete"
+				data-theme="b" data-rel="close" data-iconpos="right"></a>
+		</div>
+	</div>
+
+	<!--  2 -->
+	<div data-role="page" id="location8-page2" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location8-2.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location8-page" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide"></a></li>
+					<li><a href="#location8-page3" data-role="button"
+						data-icon="carat-r" data-theme="a" data-transition="silde"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<!--  3 -->
+	<div data-role="page" id="location8-page3" data-theme="a">
+
+		<div class="page-img-container">
+			<img class="location-img" src="img/location8-3.jpg">
+		</div>
+		<div class="text-wrapper">
+			<div class="text-container" data-theme="a">
+				<div class="bubble_container ">
+					<p>"Lalala lala lalalal alalala lalalal alala Lalalal
+						alalalalala lalalal alalalalala Lalalalal alalalalala lalalal
+						alalal alaLal lalalal "</p>
+				</div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#location8-page2" data-role="button"
+						data-icon="carat-l" data-theme="a" data-transition="slide">Zurück</a></li>
+					<li><a href="#notizen8" data-role="button" data-icon="bullets"
+						data-theme="a">Notizblock</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- NOTIZEN8 -->
+	<div data-role="page" id="notizen8" data-theme="a">
+
+		<h2>Machen Sie sich Notizen, Herr Kommissar!</h2>
+
+		<div class="text-wrapper">
+			<input type="text" id="notiz8">
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#notebook-page" data-role="button"
+						class="note-button" data-icon="search" data-theme="a"
+						data-transition="slide">Auf's Revier!</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div data-role="page" id="notebook-page" data-theme="a">
+		<p>Es wurden einige Tatverdächtige festgenommen, die nun im Revier
+			auf dich warten. Du musste den Mörder nun überführen, sieh dir vorher
+			nocheinmal deine Notizen an
+		<p>
+		<div id=notebook>
+			<h2>Notizblock</h2>
+			<div id="notes">
+				<ul data-role="listview">
+					<li id="notes-one"></li>
+					<li id="notes-two"></li>
+					<li id="notes-three"></li>
+					<li id="notes-four"></li>
+					<li id="notes-five"></li>
+					<li id="notes-six"></li>
+					<li id="notes-seven"></li>
+					<li id="notes-eight"></li>
+				</ul>
+			</div>
+		</div>
+
+		<a href="#outro-page1" data-role="button" data-icon="delete"
+			data-theme="b" data-rel="close" data-iconpos="right">Habe alles
+			im Kopf!</a>
+	</div>
+
+
+
+
+
+	<!-- WHO'S THE MURDER -->
+	<div data-role="page" id="outro-page1" data-theme="a">
+		<div class="murder-img-container" align="center">
+
+			<table>
+				<tr>
+					<th><img class="taeter-img" src="img/Personen/plötschcke.jpg"
+						id="imgPlötschcke"></th>
+
+					<th><img class="taeter-img" src="img/Personen/priester.jpg"
+						id="imgPriester"
+						onclick="document.getElementById('imgPriester').src='img/Personen/fail.jpg'">
+					</th>
+				</tr>
+				<tr>
+					<th><img class="taeter-img" src="img/Personen/junge.jpg"
+						id="imgJunge"
+						onclick="document.getElementById('imgJunge').src='img/Personen/fail.jpg'">
+					</th>
+
+					<th><img class="taeter-img" src="img/Personen/schwagerin.jpg"
+						id="imgSchwagerin"
+						onclick="document.getElementById('imgSchwagerin').src='img/Personen/fail.jpg'">
+					</th>
+				</tr>
+				<tr>
+					<th><img class="taeter-img" src="img/Personen/mutter.jpg"
+						id="imgMutter"
+						onclick="document.getElementById('imgMutter').src='img/Personen/fail.jpg'">
+					</th>
+
+					<th><img class="taeter-img" src="img/Personen/alteFrau.jpg"
+						id="imgAlteFrau"
+						onclick="document.getElementById('imgAlteFrau').src='img/Personen/fail.jpg'">
+					</th>
+				</tr>
+				<tr>
+					<th><img class="taeter-img" src="img/Personen/wirt.jpg"
+						id="imgWirt"
+						onclick="document.getElementById('imgWirt').src='img/Personen/fail.jpg'"></th>
+
+					<th><img class="taeter-img" src="img/Personen/gartner.jpg"
+						id="imgGartner"
+						onclick="document.getElementById('imgGartner').src='img/Personen/fail.jpg'">
+					</th>
+				</tr>
+			</table>
+		</div>
+
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a data-role="button" data-theme="a"> Finde den Täter.
+							<br> Wähle weise, du hast nur drei Versuche
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div data-role="page" id="won-page" data-theme="a">
+
+
+		<div class="intro-text">
+			<h2>Herzlichen Glückwunsch!</h2>
+			<p>Super, du hast Plötschke geschnappt. Als gläubigem Mensch
+				gingen ihm die ständigen Sünden so sehr gegen den Strich, dass er
+				sogar gegen seine Berufsideale als Polizist verstieß und sich zu den
+				Morden hinreißen ließ. Mit dem Bestrafen der 7 Todsünden wollte er
+				ein Zeichen setzen. Gut, dass du ihn dingfest gemacht hast.</p>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="lost-page" data-theme="a">
+
+
+		<div class="intro-text">
+			<h2>Oh nein...</h2>
+			<p>Der Mörder war.... Polizist Plötschcke.</p>
+			<p>Als gläubigem Mensch
+				gingen ihm die ständigen Sünden so sehr gegen den Strich, dass er
+				sogar gegen seine Berufsideale als Polizist verstieß und sich zu den
+				Morden hinreißen ließ. Mit dem Bestrafen der 7 Todsünden wollte er
+				ein Zeichen setzen.</p>
+			<p>Nun musst du es verantworten, dass ein
+				Serienmörder auf freiem Fuß ist!</p>
+			<p>Hoffentlich kannst du heute Nacht gut schlafen..</p>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<script src="dist/leaflet.js"></script>
+	<script src='dist/knockout-3.2.0.js'></script>
+	<script src="js/unsereGeojson.js"></script>
+	<script src="js/unsereFunctions.js"></script>
+	<script src="js/unsereInit.js"></script>
+	<script src='dist/knockout-3.2.0.js'></script>
+
+
+	<script type="text/javascript">
+		$(document).on('pageshow', '#map-page', function() {
+			recalculateMapSize();
+		});
+		function recalculateMapSize() {
+			$(window).resize();
+			map.invalidateSize(false);
+		}
+	</script>
+</body>
+</html>

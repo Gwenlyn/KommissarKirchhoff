@@ -1,0 +1,88 @@
+* {
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+
+/*locations styling*/
+html, body {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.text-wrapper {
+	overflow:hidden;
+
+	
+}
+
+
+.text-container {
+	display:inline-block;
+	display: block;
+	text-align: center;
+	overflow:auto;
+	/*funktioniert nicht mit %-Angaben. Funktioniert es mit touch (beim simulator nicht)*/
+	height:10em;
+	
+}
+
+.page-img-container {
+	display: block;
+	text-align: center;
+}
+
+
+
+.bubble_container {
+		display:inline-block;
+		width: 70%;		
+		padding: 2%;
+		border-radius: 4em;
+		background:#902c2f;
+	}
+	
+	#notebook{
+	margin-left: auto;
+	margin-right: auto;
+	width:70%;
+	border-style: solid black;
+	}
+
+
+/*Intro-Page*/
+
+.intro-text{
+	margin:5%;
+	padding:1%;
+}
+
+
+<!-- -->
+
+.ui-content {
+	position: absolute;
+	top: 45px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 0 !important;
+}
+
+
+#map {
+	height: 100%;
+}
+
+
+
+body.mode{
+	background: lightgreen;
+}
+
+#blut {
+	height: 500px;
+
+}
